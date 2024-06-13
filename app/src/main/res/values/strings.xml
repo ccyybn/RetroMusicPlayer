@@ -96,6 +96,7 @@
     <string name="bluetooth_summary">The app needs nearby devices permission to check for bluetooth devices</string>
     <string name="bluetooth_title">Nearby devices</string>
     <string name="blur">Blur</string>
+    <string name="blur_seek">Blur Seek</string>
     <string name="blur_card">Blur Card</string>
     <string name="bug_report_failed">Unable to send report</string>
     <string name="bug_report_failed_invalid_token">Invalid access token. Please contact the app developer.</string>
@@ -321,6 +322,8 @@
     <string name="playlists">Playlists</string>
     <string name="pref_blur_amount_summary">Amount of blur applied for blur themes, lower is faster</string>
     <string name="pref_blur_amount_title">Blur amount</string>
+    <string name="pref_seek_seconds_summary">Seconds for forward and backward buttons</string>
+    <string name="pref_seek_seconds_title">Forward and backward seconds</string>
     <string name="pref_filter_song_summary">Filter songs by length</string>
     <string name="pref_filter_song_title">Filter song duration</string>
     <string name="pref_header_advanced">Advanced</string>
