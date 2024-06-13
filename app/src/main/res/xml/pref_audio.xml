@@ -2,6 +2,17 @@
 <androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <code.name.monkey.appthemehelper.common.prefs.supportv7.ATESeekBarPreference
+        android:defaultValue="5"
+        android:key="seek_seconds"
+        android:layout="@layout/list_item_view_seekbar"
+        app:ateKey_pref_unit="s"
+        android:max="60"
+        android:summary="@string/pref_seek_seconds_summary"
+        android:title="@string/pref_seek_seconds_title"
+        app:icon="@drawable/ic_play_arrow"
+        app:showSeekBarValue="true" />
+
     <code.name.monkey.retromusic.preferences.DurationPreference
         android:defaultValue="0"
         android:key="audio_fade_duration"

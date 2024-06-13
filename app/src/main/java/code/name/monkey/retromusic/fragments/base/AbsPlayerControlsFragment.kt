@@ -40,6 +40,7 @@ import code.name.monkey.retromusic.util.MusicUtil
 import code.name.monkey.retromusic.util.PreferenceUtil
 import code.name.monkey.retromusic.util.color.MediaNotificationProcessor
 import com.google.android.material.slider.Slider
+import code.name.monkey.retromusic.util.PreferenceUtil.seekSeconds
 
 /**
  * Created by hemanths on 24/09/17.
@@ -71,6 +72,10 @@ abstract class AbsPlayerControlsFragment(@LayoutRes layout: Int) : AbsMusicServi
     open val nextButton: ImageButton? = null
 
     open val previousButton: ImageButton? = null
+
+    open val forwardButton: ImageButton? = null
+
+    open val backwardButton: ImageButton? = null
 
     open val songTotalTime: TextView? = null
 
@@ -202,6 +207,8 @@ abstract class AbsPlayerControlsFragment(@LayoutRes layout: Int) : AbsMusicServi
     private fun setUpPrevNext() {
         nextButton?.setOnTouchListener(MusicSeekSkipTouchListener(requireActivity(), true))
         previousButton?.setOnTouchListener(MusicSeekSkipTouchListener(requireActivity(), false))
+        forwardButton?.setOnClickListener { MusicPlayerRemote.forward(seekSeconds * 1000) }
+        backwardButton?.setOnClickListener { MusicPlayerRemote.backward(seekSeconds * 1000) }
     }
 
     private fun setUpShuffleButton() {
@@ -215,6 +222,8 @@ abstract class AbsPlayerControlsFragment(@LayoutRes layout: Int) : AbsMusicServi
     fun updatePrevNextColor() {
         nextButton?.setColorFilter(lastPlaybackControlsColor, PorterDuff.Mode.SRC_IN)
         previousButton?.setColorFilter(lastPlaybackControlsColor, PorterDuff.Mode.SRC_IN)
+        forwardButton?.setColorFilter(lastPlaybackControlsColor, PorterDuff.Mode.SRC_IN)
+        backwardButton?.setColorFilter(lastPlaybackControlsColor, PorterDuff.Mode.SRC_IN)
     }
 
     fun updateShuffleState() {

@@ -181,6 +181,14 @@ object MusicPlayerRemote : KoinComponent {
         musicService?.pause()
     }
 
+    fun forward(millis: Int) {
+        seekTo(songProgressMillis + millis)
+    }
+
+    fun backward(millis: Int) {
+        seekTo(songProgressMillis - millis)
+    }
+
     /**
      * Async
      */

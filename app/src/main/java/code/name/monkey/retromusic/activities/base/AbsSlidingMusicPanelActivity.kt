@@ -79,6 +79,7 @@ import code.name.monkey.retromusic.fragments.base.AbsPlayerFragment
 import code.name.monkey.retromusic.fragments.other.MiniPlayerFragment
 import code.name.monkey.retromusic.fragments.player.adaptive.AdaptiveFragment
 import code.name.monkey.retromusic.fragments.player.blur.BlurPlayerFragment
+import code.name.monkey.retromusic.fragments.player.blur_seek.BlurSeekPlayerFragment
 import code.name.monkey.retromusic.fragments.player.card.CardFragment
 import code.name.monkey.retromusic.fragments.player.cardblur.CardBlurFragment
 import code.name.monkey.retromusic.fragments.player.circle.CirclePlayerFragment
@@ -423,7 +424,7 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
             if (PreferenceUtil.isAdaptiveColor && (nowPlayingScreen == Normal || nowPlayingScreen == Flat || nowPlayingScreen == Material)) {
                 setLightNavigationBar(true)
                 setLightStatusBar(isColorLight)
-            } else if (nowPlayingScreen == Card || nowPlayingScreen == Blur || nowPlayingScreen == BlurCard) {
+            } else if (nowPlayingScreen == Card || nowPlayingScreen == Blur || nowPlayingScreen == BlurSeek || nowPlayingScreen == BlurCard) {
                 animateNavigationBarColor(Color.BLACK)
                 navigationBarColor = Color.BLACK
                 setLightStatusBar(false)
@@ -569,6 +570,7 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
 
         val fragment: AbsPlayerFragment = when (nowPlayingScreen) {
             Blur -> BlurPlayerFragment()
+            BlurSeek -> BlurSeekPlayerFragment()
             Adaptive -> AdaptiveFragment()
             Normal -> PlayerFragment()
             Card -> CardFragment()

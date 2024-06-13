@@ -29,6 +29,7 @@ enum class NowPlayingScreen constructor(
 
     Adaptive(R.string.adaptive, R.drawable.np_adaptive, 10, AlbumCoverStyle.FullCard),
     Blur(R.string.blur, R.drawable.np_blur, 4, AlbumCoverStyle.Normal),
+    BlurSeek(R.string.blur_seek, R.drawable.np_blur, 19, AlbumCoverStyle.Normal),
     BlurCard(R.string.blur_card, R.drawable.np_blur_card, 9, AlbumCoverStyle.Card),
     Card(R.string.card, R.drawable.np_card, 6, AlbumCoverStyle.Full),
     Circle(R.string.circle, R.drawable.np_minimalistic_circle, 15, null),

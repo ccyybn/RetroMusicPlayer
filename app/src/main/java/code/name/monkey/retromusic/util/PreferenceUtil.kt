@@ -668,6 +668,8 @@ object PreferenceUtil {
             false
         )
 
+    val seekSeconds get() = sharedPreferences.getInt(SEEK_SECONDS, 5)
+
     var audioFadeDuration
         get() = sharedPreferences
             .getInt(AUDIO_FADE_DURATION, 0)
