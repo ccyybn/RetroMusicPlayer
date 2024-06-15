@@ -293,10 +293,7 @@ class AlbumDetailsFragment : AbsMainActivityFragment(R.layout.fragment_album_det
         Glide.with(requireContext())
             //.forceDownload(PreferenceUtil.isAllowedToDownloadMetadata())
             .load(
-                RetroGlideExtension.getArtistModel(
-                    artist,
-                    PreferenceUtil.isAllowedToDownloadMetadata(requireContext())
-                )
+                RetroGlideExtension.getArtistModel(artist)
             )
             .artistImageOptions(artist)
             .dontAnimate()

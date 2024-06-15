@@ -16,8 +16,6 @@ package code.name.monkey.retromusic.fragments.settings
 
 import android.os.Bundle
 import android.view.View
-import androidx.preference.Preference
-import code.name.monkey.retromusic.AUTO_DOWNLOAD_IMAGES_POLICY
 import code.name.monkey.retromusic.R
 
 /**
@@ -26,12 +24,6 @@ import code.name.monkey.retromusic.R
 
 class ImageSettingFragment : AbsSettingsFragment() {
     override fun invalidateSettings() {
-        val autoDownloadImagesPolicy: Preference = findPreference(AUTO_DOWNLOAD_IMAGES_POLICY)!!
-        setSummary(autoDownloadImagesPolicy)
-        autoDownloadImagesPolicy.setOnPreferenceChangeListener { _, o ->
-            setSummary(autoDownloadImagesPolicy, o)
-            true
-        }
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
@@ -40,7 +32,5 @@ class ImageSettingFragment : AbsSettingsFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val preference: Preference? = findPreference(AUTO_DOWNLOAD_IMAGES_POLICY)
-        preference?.let { setSummary(it) }
     }
 }
