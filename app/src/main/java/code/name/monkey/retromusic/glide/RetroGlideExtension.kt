@@ -69,23 +69,13 @@ object RetroGlideExtension {
     fun getArtistModel(artist: Artist): Any {
         return getArtistModel(
             artist,
-            getInstance(getContext()).hasCustomArtistImage(artist),
-            false
-        )
-    }
-
-    fun getArtistModel(artist: Artist, forceDownload: Boolean): Any {
-        return getArtistModel(
-            artist,
-            getInstance(getContext()).hasCustomArtistImage(artist),
-            forceDownload
+            getInstance(getContext()).hasCustomArtistImage(artist)
         )
     }
 
     private fun getArtistModel(
         artist: Artist,
-        hasCustomImage: Boolean,
-        forceDownload: Boolean
+        hasCustomImage: Boolean
     ): Any {
         return if (!hasCustomImage) {
             ArtistImage(artist)

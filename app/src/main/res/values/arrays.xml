@@ -39,12 +39,6 @@
         <item>3</item>
     </string-array>
 
-    <array name="pref_auto_download_images_titles">
-        <item>@string/always</item>
-        <item>@string/only_on_wifi</item>
-        <item>@string/never</item>
-    </array>
-
     <array name="pref_tab_text_mode_titles">
         <item>@string/auto</item>
         <item>@string/labeled</item>

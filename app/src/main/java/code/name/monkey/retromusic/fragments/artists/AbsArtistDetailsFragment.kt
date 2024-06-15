@@ -133,9 +133,9 @@ abstract class AbsArtistDetailsFragment : AbsMainActivityFragment(R.layout.fragm
         }
         this.artist = artist
         loadArtistImage(artist)
-        if (PreferenceUtil.isAllowedToDownloadMetadata(requireContext())) {
-            loadBiography(artist.name)
-        }
+//        if (PreferenceUtil.isAllowedToDownloadMetadata(requireContext())) {
+//            loadBiography(artist.name)
+//        }
         binding.artistTitle.text = artist.name
         binding.text.text = String.format(
             "%s • %s",
