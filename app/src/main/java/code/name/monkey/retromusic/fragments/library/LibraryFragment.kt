@@ -92,13 +92,15 @@ class LibraryFragment : AbsMainActivityFragment(R.layout.fragment_library) {
 
     override fun onCreateMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_main, menu)
+        val toolbarColor = getToolbarBackgroundColor(binding.toolbar)
         ToolbarContentTintHelper.handleOnCreateOptionsMenu(
             requireContext(),
             binding.toolbar,
             menu,
-            getToolbarBackgroundColor(binding.toolbar)
+            toolbarColor
         )
         //Setting up cast button
+        setCastColor(menu, toolbarColor)
         requireContext().setUpMediaRouteButton(menu)
     }
 

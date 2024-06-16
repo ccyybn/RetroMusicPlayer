@@ -190,12 +190,14 @@ abstract class AbsRecyclerViewFragment<A : RecyclerView.Adapter<*>, LM : Recycle
 
     override fun onCreateMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_main, menu)
+        val toolbarColor = ATHToolbarActivity.getToolbarBackgroundColor(toolbar)
         ToolbarContentTintHelper.handleOnCreateOptionsMenu(
             requireContext(),
             toolbar,
             menu,
-            ATHToolbarActivity.getToolbarBackgroundColor(toolbar)
+            toolbarColor
         )
+        setCastColor(menu, toolbarColor)
     }
 
     override fun onMenuItemSelected(item: MenuItem): Boolean {

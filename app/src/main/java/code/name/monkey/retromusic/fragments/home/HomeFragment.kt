@@ -203,13 +203,15 @@ class HomeFragment :
         menu.removeItem(R.id.action_layout_type)
         menu.removeItem(R.id.action_sort_order)
         menu.findItem(R.id.action_settings).setShowAsAction(SHOW_AS_ACTION_IF_ROOM)
+        val toolbarColor = ATHToolbarActivity.getToolbarBackgroundColor(binding.toolbar)
         ToolbarContentTintHelper.handleOnCreateOptionsMenu(
             requireContext(),
             binding.toolbar,
             menu,
-            ATHToolbarActivity.getToolbarBackgroundColor(binding.toolbar)
+            toolbarColor
         )
         //Setting up cast button
+        setCastColor(menu, toolbarColor)
         requireContext().setUpMediaRouteButton(menu)
     }
 

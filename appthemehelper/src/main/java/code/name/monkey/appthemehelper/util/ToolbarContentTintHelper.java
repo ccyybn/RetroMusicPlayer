@@ -397,7 +397,7 @@ public final class ToolbarContentTintHelper {
     public static void setToolbarContentColor(@NonNull Context context,
             Toolbar toolbar,
             @Nullable Menu menu,
-            final @ColorInt int toolbarContentColor,
+            @ColorInt int toolbarContentColor,
             final @ColorInt int titleTextColor,
             final @ColorInt int subtitleTextColor,
             final @ColorInt int menuWidgetColor) {
@@ -412,18 +412,19 @@ public final class ToolbarContentTintHelper {
         toolbar.setTitleTextColor(titleTextColor);
         toolbar.setSubtitleTextColor(subtitleTextColor);
 
+        if (toolbarContentColor == -1) toolbarContentColor = 0x8affffff;
         if (toolbar.getNavigationIcon() != null) {
             // Tint the toolbar navigation icon (e.g. back, drawer, etc.)
             toolbar.setNavigationIcon(
                     TintHelper.createTintedDrawable(toolbar.getNavigationIcon(), toolbarContentColor));
         }
 
-        InternalToolbarContentTintUtil.tintMenu(toolbar, menu, toolbarContentColor);
+//        InternalToolbarContentTintUtil.tintMenu(toolbar, menu, toolbarContentColor);
         InternalToolbarContentTintUtil.applyOverflowMenuTint(context, toolbar, menuWidgetColor);
 
-        if (context instanceof Activity) {
-            InternalToolbarContentTintUtil.setOverflowButtonColor((Activity) context, toolbarContentColor);
-        }
+//        if (context instanceof Activity) {
+//            InternalToolbarContentTintUtil.setOverflowButtonColor((Activity) context, toolbarContentColor);
+//        }
 
         try {
             // Tint immediate overflow menu items
