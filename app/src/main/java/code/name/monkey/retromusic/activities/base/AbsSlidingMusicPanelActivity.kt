@@ -469,7 +469,7 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
         for (tab in currentTabs) {
             if (tab.visible) {
                 val menu = tab.category
-                binding.navigationView.menu.add(0, menu.id, 0, menu.stringRes)
+                binding.navigationView.menu.add(0, menu.id, 0, "")
                     .setIcon(menu.icon)
             }
         }
