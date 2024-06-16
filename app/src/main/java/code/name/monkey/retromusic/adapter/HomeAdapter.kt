@@ -135,7 +135,10 @@ class HomeAdapter(private val activity: AppCompatActivity) :
 
     @Suppress("UNCHECKED_CAST")
     private inner class AlbumViewHolder(view: View) : AbsHomeViewItem(view) {
+        private var isBind: Boolean = false
         fun bindView(home: Home) {
+            if (isBind) return
+            isBind = true
             title.setText(home.titleRes)
             recyclerView.apply {
                 adapter = albumAdapter(home.arrayList as List<Album>)
@@ -146,7 +149,10 @@ class HomeAdapter(private val activity: AppCompatActivity) :
 
     @Suppress("UNCHECKED_CAST")
     private inner class ArtistViewHolder(view: View) : AbsHomeViewItem(view) {
+        private var isBind: Boolean = false
         fun bindView(home: Home) {
+            if (isBind) return
+            isBind = true
             title.setText(home.titleRes)
             recyclerView.apply {
                 layoutManager = linearLayoutManager()
@@ -157,7 +163,10 @@ class HomeAdapter(private val activity: AppCompatActivity) :
 
     @Suppress("UNCHECKED_CAST")
     private inner class PlaylistViewHolder(view: View) : AbsHomeViewItem(view) {
+        private var isBind: Boolean = false
         fun bindView(home: Home) {
+            if (isBind) return
+            isBind = true
             title.setText(home.titleRes)
             recyclerView.apply {
                 val songAdapter = SongAdapter(

@@ -46,13 +46,15 @@ abstract class AbsMainActivityFragment(@LayoutRes layout: Int) : AbsMusicService
 
     @SuppressLint("PrivateResource")
     protected fun setCastColor(menu: Menu, toolbarColor: Int) {
-        val castButton = menu.findItem(R.id.action_cast).actionView as MediaRouteButton
-        val castContext = ContextThemeWrapper(context, androidx.mediarouter.R.style.Theme_MediaRouter)
-        val attrs = castContext.obtainStyledAttributes(null, androidx.mediarouter.R.styleable.MediaRouteButton, androidx.mediarouter.R.attr.mediaRouteButtonStyle, 0)
-        val drawable = attrs.getDrawable(androidx.mediarouter.R.styleable.MediaRouteButton_externalRouteEnabledDrawable)!!
-        attrs.recycle()
-        DrawableCompat.setTint(drawable, if(isColorLight(toolbarColor)) 0x8a000000.toInt() else 0x8affffff.toInt())
-        drawable.state = castButton.drawableState
-        castButton.setRemoteIndicatorDrawable(drawable)
+        val castButton = menu.findItem(R.id.action_cast)?.actionView as? MediaRouteButton
+        if (castButton != null) {
+            val castContext = ContextThemeWrapper(context, androidx.mediarouter.R.style.Theme_MediaRouter)
+            val attrs = castContext.obtainStyledAttributes(null, androidx.mediarouter.R.styleable.MediaRouteButton, androidx.mediarouter.R.attr.mediaRouteButtonStyle, 0)
+            val drawable = attrs.getDrawable(androidx.mediarouter.R.styleable.MediaRouteButton_externalRouteEnabledDrawable)!!
+            attrs.recycle()
+            DrawableCompat.setTint(drawable, if (isColorLight(toolbarColor)) 0x8a000000.toInt() else 0x8affffff.toInt())
+            drawable.state = castButton.drawableState
+            castButton.setRemoteIndicatorDrawable(drawable)
+        }
     }
 }

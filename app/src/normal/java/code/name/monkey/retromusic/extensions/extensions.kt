@@ -16,7 +16,7 @@ import com.google.android.play.core.splitinstall.model.SplitInstallSessionStatus
 import java.util.*
 
 fun Context.setUpMediaRouteButton(menu: Menu) {
-    CastButtonFactory.setUpMediaRouteButton(this, menu, R.id.action_cast)
+//    CastButtonFactory.setUpMediaRouteButton(this, menu, R.id.action_cast)
 }
 
 fun FragmentActivity.installLanguageAndRecreate(code: String, onInstallComplete: () -> Unit) {
