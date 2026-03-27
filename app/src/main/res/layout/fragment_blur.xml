@@ -51,16 +51,27 @@
         app:layout_constraintTop_toBottomOf="@id/statusBarContainer" />
 
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/playbackControlsFragment"
-        android:name="code.name.monkey.retromusic.fragments.player.blur.BlurPlaybackControlsFragment"
+        android:id="@+id/playbackProgressFragment"
+        android:name="code.name.monkey.retromusic.fragments.player.blur.BlurPlaybackProgressFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/playerToolbar"
+        app:layout_constraintBottom_toTopOf="@id/playbackControlsFragment"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/playerAlbumCoverFragment"
-        tools:layout="@layout/fragment_player_playback_controls" />
+        tools:layout="@layout/fragment_player_progress_controls" />
 
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/playbackControlsFragment"
+        android:name="code.name.monkey.retromusic.fragments.player.blur.BlurPlaybackControlsFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="33dp"
+        app:layout_constraintBottom_toTopOf="@id/playerToolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/playbackProgressFragment"
+        tools:layout="@layout/fragment_blur_player_button_controls"/>
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/playerToolbar"

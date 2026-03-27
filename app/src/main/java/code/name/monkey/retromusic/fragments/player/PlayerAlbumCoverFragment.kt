@@ -15,6 +15,7 @@
 package code.name.monkey.retromusic.fragments.player
 
 import android.animation.ObjectAnimator
+import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -27,6 +28,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.preference.PreferenceManager
 import androidx.viewpager.widget.ViewPager
+import androidx.constraintlayout.widget.ConstraintLayout
 import kotlinx.coroutines.launch
 import code.name.monkey.appthemehelper.util.ColorUtil
 import code.name.monkey.appthemehelper.util.MaterialValueHelper
@@ -41,6 +43,7 @@ import code.name.monkey.retromusic.extensions.surfaceColor
 import code.name.monkey.retromusic.fragments.NowPlayingScreen.*
 import code.name.monkey.retromusic.fragments.base.AbsMusicServiceFragment
 import code.name.monkey.retromusic.fragments.base.goToLyrics
+import code.name.monkey.retromusic.fragments.player.blur.BlurPlayerFragment
 import code.name.monkey.retromusic.helper.MusicPlayerRemote
 import code.name.monkey.retromusic.helper.MusicProgressViewUpdateHelper
 import code.name.monkey.retromusic.lyrics.CoverLrcView
@@ -77,6 +80,15 @@ class PlayerAlbumCoverFragment : AbsMusicServiceFragment(R.layout.fragment_playe
     private val lrcView: CoverLrcView get() = binding.lyricsView
 
     var lyrics: Lyrics? = null
+
+    // Dynamically adjust the height percentage of the album cover container
+    private fun setPlayerHeight(percent: Float) {
+        val parentView = requireParentFragment().requireView()
+        val playerContainer = parentView.findViewById<View>(R.id.playerAlbumCoverFragment)
+        val params = playerContainer.layoutParams as ConstraintLayout.LayoutParams
+        params.matchConstraintPercentHeight = percent
+        playerContainer.layoutParams = params
+    }
 
     fun removeSlideEffect() {
         val transformer = ParallaxPagerTransformer(R.id.player_image)
@@ -202,6 +214,7 @@ class PlayerAlbumCoverFragment : AbsMusicServiceFragment(R.layout.fragment_playe
                     progressViewUpdateHelper?.stop()
                 }
             }
+
             LYRICS_TYPE -> {
                 maybeInitLyrics()
             }
@@ -222,18 +235,55 @@ class PlayerAlbumCoverFragment : AbsMusicServiceFragment(R.layout.fragment_playe
         binding.coverLyrics.isVisible = false
         binding.lyricsView.isVisible = false
         binding.viewPager.isVisible = true
-        val lyrics: View = if (PreferenceUtil.lyricsType == CoverLyricsType.REPLACE_COVER) {
-            ObjectAnimator.ofFloat(viewPager, View.ALPHA, if (visible) 0F else 1F).start()
-            lrcView
-        } else {
-            ObjectAnimator.ofFloat(viewPager, View.ALPHA, 1F).start()
-            binding.coverLyrics
-        }
-        ObjectAnimator.ofFloat(lyrics, View.ALPHA, if (visible) 1F else 0F).apply {
-            doOnEnd {
-                lyrics.isVisible = visible
+        if (requireParentFragment() is BlurPlayerFragment && PreferenceUtil.lyricsType == CoverLyricsType.REPLACE_COVER) {
+            val lyrics: View = if (PreferenceUtil.lyricsType == CoverLyricsType.REPLACE_COVER) {
+                ObjectAnimator.ofFloat(viewPager, View.ALPHA, if (visible) 0F else 1F).apply {
+                    duration = 300
+                    start()
+                }
+                lrcView
+            } else {
+                ObjectAnimator.ofFloat(viewPager, View.ALPHA, 1F).start()
+                binding.coverLyrics
             }
-            start()
+
+            // Animate lyrics alpha smoothly
+            ObjectAnimator.ofFloat(lyrics, View.ALPHA, if (visible) 1F else 0F).apply {
+                duration = 300
+                doOnEnd {
+                    lyrics.isVisible = visible
+                }
+                start()
+            }
+            // Smoothly animate height percentage: 0.5 <-> 0.58
+            val parentView = requireParentFragment().requireView()
+            val playerContainer = parentView.findViewById<View>(R.id.playerAlbumCoverFragment)
+            val layoutParams = playerContainer.layoutParams as ConstraintLayout.LayoutParams
+            val currentPercent = layoutParams.matchConstraintPercentHeight
+            val targetPercent = if (visible) 0.58f else 0.5f
+
+            val anim = ValueAnimator.ofFloat(currentPercent, targetPercent)
+            anim.duration = 300
+            anim.addUpdateListener { valueAnimator ->
+                val value = valueAnimator.animatedValue as Float
+                layoutParams.matchConstraintPercentHeight = value
+                playerContainer.layoutParams = layoutParams
+            }
+            anim.start()
+        } else {
+            val lyrics: View = if (PreferenceUtil.lyricsType == CoverLyricsType.REPLACE_COVER) {
+                ObjectAnimator.ofFloat(viewPager, View.ALPHA, if (visible) 0F else 1F).start()
+                lrcView
+            } else {
+                ObjectAnimator.ofFloat(viewPager, View.ALPHA, 1F).start()
+                binding.coverLyrics
+            }
+            ObjectAnimator.ofFloat(lyrics, View.ALPHA, if (visible) 1F else 0F).apply {
+                doOnEnd {
+                    lyrics.isVisible = visible
+                }
+                start()
+            }
         }
     }
 
@@ -302,6 +352,7 @@ class PlayerAlbumCoverFragment : AbsMusicServiceFragment(R.layout.fragment_playe
             } else {
                 setLRCViewColors(primaryColor, secondaryColor)
             }
+
             Color, Classic -> setLRCViewColors(color.primaryTextColor, color.secondaryTextColor)
             Blur -> setLRCViewColors(android.graphics.Color.WHITE, ColorUtil.withAlpha(android.graphics.Color.WHITE, 0.5f))
             else -> setLRCViewColors(primaryColor, secondaryColor)
